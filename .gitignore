@@ -1,0 +1,5 @@
+git reset HEAD chest_xray/
+git add frontend.py "pneumonia detector.ipynb" README.md requirements.txt .gitignore
+git commit -m "Pneumonia detection project (code only)"
+git push -u origin main
+
