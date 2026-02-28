@@ -8,7 +8,7 @@ Deep learning model to detect pneumonia from chest X-ray images using PyTorch an
 - 
 ## Try It Out
 
-[Live Demo on Streamlit Cloud]https://pneumo-vision-ai.streamlit.app/
+[Live Demo on Streamlit Cloud](#) https://pneumo-vision-ai.streamlit.app/
 
 ## Tech Stack
 
