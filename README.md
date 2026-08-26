@@ -31,6 +31,7 @@ An AI-powered full stack web app that analyzes chest X-rays and predicts pneumon
 ## Architecture
 
 User → Next.js frontend → FastAPI backend → PyTorch CNN → Grad-CAM
+
 ↓
 
 PostgreSQL
