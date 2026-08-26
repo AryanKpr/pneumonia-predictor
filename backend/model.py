@@ -1,11 +1,25 @@
 import os
+import requests
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from PIL import Image
 import torchvision.transforms as transforms
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "pneumonia_model.pth")
+MODEL_URL = os.getenv(
+    "MODEL_URL",
+    "https://huggingface.co/AryanKpr/pneumonia-predictor/resolve/main/pneumonia_model.pth"
+)
+MODEL_PATH = "/tmp/pneumonia_model.pth"
+
+def download_model():
+    if not os.path.exists(MODEL_PATH):
+        print("Downloading model weights...")
+        r = requests.get(MODEL_URL, stream=True)
+        with open(MODEL_PATH, "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+        print("Model downloaded.")
 
 class Net(nn.Module):
     def __init__(self):
@@ -26,6 +40,7 @@ class Net(nn.Module):
         return self.fc3(x)
 
 def load_model():
+    download_model()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model  = Net()
     model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
