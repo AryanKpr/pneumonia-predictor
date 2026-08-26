@@ -15,7 +15,10 @@ app = FastAPI(title="Pneumonia Predictor API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # your Next.js dev URL
+    allow_origins=[
+        "http://localhost:3000",
+        "https://pneumonia-predictor-kappa.vercel.app/",  
+    ],  
     allow_methods=["*"],
     allow_headers=["*"],
 )
