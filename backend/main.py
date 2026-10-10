@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from PIL import Image
+from fastapi import HTTPException
 
 from db import init_db, get_db, Prediction
 from model import load_model, predict
@@ -28,9 +29,14 @@ def startup():
     init_db()
 
 @app.post("/predict", response_model=PredictionResponse)
-async def predict_xray(file: UploadFile = File(...), db: Session = Depends(get_db)):
-    contents = await file.read()
-    image    = Image.open(io.BytesIO(contents))
+def predict_xray(file: UploadFile = File(...), db: Session = Depends(get_db)):
+    contents = file.file.read()
+    try:
+        image = Image.open(io.BytesIO(contents))
+        image.load()  # forces full decode, catches truncated files
+    except OSError:  # includes PIL's UnidentifiedImageError
+        raise HTTPException(status_code=400, detail="File is not a valid image")
+    
     result, confidence = predict(image, model, device)
     gradcam_b64        = generate_gradcam(image, model, device)
     image_hash         = hashlib.sha256(contents).hexdigest()
