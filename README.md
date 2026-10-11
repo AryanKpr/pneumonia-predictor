@@ -56,3 +56,4 @@ The API is then available at http://localhost:8000/docs.
 docker compose up -d db
 cd backend
 DATABASE_URL=postgresql://app:app@localhost:5433/pneumonia pytest -v
+![CI](https://github.com/AryanKpr/pneumonia-predictor/actions/workflows/ci.yml/badge.svg)
