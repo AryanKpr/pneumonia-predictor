@@ -45,3 +45,14 @@ PostgreSQL
 - Weights hosted on [Hugging Face](https://huggingface.co/AryanKpr/pneumonia-predictor)
 
 ---
+## Running locally
+
+docker compose up --build
+
+The API is then available at http://localhost:8000/docs.
+
+## Running tests
+
+docker compose up -d db
+cd backend
+DATABASE_URL=postgresql://app:app@localhost:5433/pneumonia pytest -v
