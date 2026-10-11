@@ -1,6 +1,8 @@
 # 🫁 Pneumonia Detector
 
-An AI-powered full stack web app that analyzes chest X-rays and predicts pneumonia with Grad-CAM heatmap visualization showing exactly what the model focused on.
+![CI](https://github.com/AryanKpr/pneumonia-predictor/actions/workflows/ci.yml/badge.svg)
+
+An AI-powered full stack web app that analyzes chest X-rays and predicts pneumonia with Grad-CAM heatmap visualization showing exactly what the model focused on. Containerized with Docker, tested with GitHub Actions CI
 
 🔗 **[Live Demo](https://pneumonia-predictor-kappa.vercel.app/)**
 
@@ -47,13 +49,16 @@ PostgreSQL
 ---
 ## Running locally
 
+```bash
 docker compose up --build
+```
 
 The API is then available at http://localhost:8000/docs.
 
 ## Running tests
 
+```bash
 docker compose up -d db
 cd backend
 DATABASE_URL=postgresql://app:app@localhost:5433/pneumonia pytest -v
-![CI](https://github.com/AryanKpr/pneumonia-predictor/actions/workflows/ci.yml/badge.svg)
+```
